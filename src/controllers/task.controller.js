@@ -1,12 +1,10 @@
 import Task from "../models/Task";
-import Project from "../models/Project";
-import User from "../models/User";
 
 // Crear una tarea
 export const createTask = async (req, res) => {
 	try {
 		const { task, state, projectId, userId } = req.body;
-		const newTask = new Task({task, state, projectId, userId});
+		const newTask = new Task({ task, state, projectId, userId });
 		const savedTask = await newTask.save();
 		res.status(200).json(savedTask);
 	} catch (error) {
@@ -16,13 +14,17 @@ export const createTask = async (req, res) => {
 
 // Mostrar todas las tareas
 export const getTask = async (req, res) => {
-	const tasks = await Task.find();
+	const tasks = await Task.find()
+		.populate("projectId", "name")
+		.populate("userId", "username");
 	res.json(tasks);
 };
 
 // Mostrar una tarea en particular
 export const getTaskById = async (req, res) => {
-	const task = await Task.findById(req.params.taskId);
+	const task = await Task.findById(req.params.taskId)
+		.populate("projectId", "name")
+		.populate("userId", "username");
 	res.status(200).json(task);
 };
 

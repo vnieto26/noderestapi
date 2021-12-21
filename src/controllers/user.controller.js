@@ -27,7 +27,7 @@ export const createUser = async (req, res) => {
 
 // Mostrar todos los usuarios
 export const getUsers = async (req, res) => {
-	const users = await User.find();
+	const users = await User.find().populate("roles");
 	res.json(users)
 };
 

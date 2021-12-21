@@ -4,6 +4,10 @@ const router = Router();
 import * as projectsCtrl from "../controllers/projects.controller";
 import { authJwt } from "../middlewares";
 
+// Obtener un proyecto
+router.get("/:projectId", projectsCtrl.getProjectById);
+
+
 // Obtener todos los proyectos
 router.get("/", projectsCtrl.getProjects);
 
@@ -11,8 +15,6 @@ router.get("/", projectsCtrl.getProjects);
 //router.post("/", [authJwt.verifyToken, authJwt.isAdmin], projectsCtrl.createProject);
 router.post("/", projectsCtrl.createProject);
 
-// Obtener un proyecto
-router.get("/:projectId", projectsCtrl.getProjectById);
 
 // Actualizar un proyecto
 //router.put("/:projectId", [authJwt.verifyToken, authJwt.isAdmin], projectsCtrl.updateProjectById);
